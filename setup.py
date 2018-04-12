@@ -11,7 +11,7 @@ URL = 'https://github.com/osantana/dicteval'
 EMAIL = 'dicteval@osantana.me'
 AUTHOR = 'Osvaldo Santana Neto'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 here = os.path.abspath(os.path.dirname(__file__))
 

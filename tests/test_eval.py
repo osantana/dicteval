@@ -1,6 +1,7 @@
 import pytest
 
 from dicteval import dicteval, jsoneval, BuiltinLanguage
+from dicteval.exceptions import FunctionNotFound
 
 
 @pytest.mark.parametrize("expression,result", [
@@ -30,9 +31,25 @@ def test_invalid_expression_object_with_no_result_key():
 
 
 def test_json_loads():
-    assert jsoneval('{"=": 3}') == 3
+    assert jsoneval('{"=": [true, null]}') == [True, None]
 
 
-def test_buitin_language(context):
+@pytest.mark.parametrize("fn,args,result", [
+    ("eq", (1, 1, 1, 1, 1), True),
+    ("eq", (1, 1, 5, 1, 1), False),
+    ("neq", (1, 1, 1, 1, 1), False),
+    ("neq", (1, 1, 5, 1, 1), True),
+    ("nop", 4, 4),
+    ("not", True, False),
+    ("not", False, True),
+    ("sum", (1, 2), 3),
+])
+def test_buitin_language(fn, args, result, context):
     language = BuiltinLanguage()
-    assert language["sum"]([1, 2], dicteval, context) == 3
+    assert language[fn](args, dicteval, context) == result
+
+
+def test_function_not_found_error():
+    language = BuiltinLanguage()
+    with pytest.raises(FunctionNotFound):
+        return language["not_found"]

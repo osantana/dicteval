@@ -1,16 +1,31 @@
 import json
 
+from .exceptions import FunctionNotFound
+
 
 class LanguageSpecification:
     def __getitem__(self, item):
         if not item:
             item = "nop"
-        return getattr(self, f"function_{item}")
+        try:
+            return getattr(self, f"function_{item}")
+        except AttributeError:
+            raise FunctionNotFound(f"Function {item} not found.")
 
 
 class BuiltinLanguage(LanguageSpecification):
+    def function_eq(self, value, evaluator, context):
+        value = [evaluator(v, context) for v in value]
+        return not value or value.count(value[0]) == len(value)
+
+    def function_neq(self, value, evaluator, context):
+        return not self.function_eq(value, evaluator, context)
+
     def function_nop(self, value, evaluator, context):
         return evaluator(value, context)
+
+    def function_not(self, value, evaluator, context):
+        return not evaluator(value, context)
 
     def function_sum(self, value, evaluator, context):
         return sum(evaluator(v, context) for v in value)

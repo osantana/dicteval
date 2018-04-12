@@ -48,6 +48,50 @@ Functions
 You can use the following builtin functions in your expressions:
 
 
+Function ``=eq``
+''''''''''''''''
+
+Returns ``True`` if all elements of sequence are equals:
+
+   >>> dicteval({"=eq": [1, 1, 1, 1]})
+   True
+
+
+Function ``=neq``
+''''''''''''''''
+
+Returns ``True`` if elements of sequence are different:
+
+   >>> dicteval({"=neq": [1, 1, 1, 5]})
+   True
+
+
+Function ``=`` (or ``nop``)
+'''''''''''''''''''''''''''
+
+Returns the same values passed as arguments:
+
+   >>> dicteval({"=": [1, 2, 3, 4]})
+   [1, 2, 3, 4]
+   >>> dicteval({"=nop": "spam"})
+   'spam'
+
+
+Function ``=not``
+''''''''''''''''
+
+Returns the boolean inverse of argument:
+
+   >>> dicteval({"=not": False})
+   True
+   >>> dicteval({"=not": True})
+   False
+   >>> dicteval({"=not": None})
+   True
+   >>> dicteval({"=not": "XYZ"})
+   False
+
+
 Function ``=sum``
 '''''''''''''''''
 
@@ -55,7 +99,6 @@ Returns a number with the sum of arguments:
 
    >>> dicteval({"=sum": [3, 5]})
    8
-
 
 To Do
 -----

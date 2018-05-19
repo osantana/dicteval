@@ -100,6 +100,15 @@ Returns a number with the sum of arguments:
    >>> dicteval({"=sum": [3, 5]})
    8
 
+
+Function ``=mul``
+'''''''''''''''''
+
+Returns a number with the product of arguments:
+
+   >>> dicteval({"=mul": [3, 5]})
+   15
+
 To Do
 -----
 

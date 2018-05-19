@@ -15,7 +15,10 @@ from dicteval.exceptions import FunctionNotFound
     ({"=": 3, "ignore": 5}, 3),
     ({"=sum": [3, 5]}, 8),
     ({"=sum": (3, 5)}, 8),
-    ({"=sum": {"=": [3, 5]}}, 8)
+    ({"=sum": {"=": [3, 5]}}, 8),
+    ({"=mul": [3, 5]}, 15),
+    ({"=mul": (3, 5)}, 15),
+    ({"=mul": {"=": [3, 5]}}, 15),
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result
@@ -43,6 +46,7 @@ def test_json_loads():
     ("not", True, False),
     ("not", False, True),
     ("sum", (1, 2), 3),
+    ("mul", (2, 4), 8),
 ])
 def test_buitin_language(fn, args, result, context):
     language = BuiltinLanguage()

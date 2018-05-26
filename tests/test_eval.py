@@ -16,7 +16,6 @@ from dicteval.exceptions import FunctionNotFound
     ({"=sum": [3, 5]}, 8),
     ({"=sum": (3, 5)}, 8),
     ({"=sum": {"=": [3, 5]}}, 8),
-    ({"=mul": (3, 5)}, 15),
     ({"=mul": (5, 3, 2, -1)}, -30),
 ])
 def test_basic_eval(expression, result):

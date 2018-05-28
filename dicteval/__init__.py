@@ -1,4 +1,6 @@
+import functools
 import json
+import operator
 
 from .exceptions import FunctionNotFound
 
@@ -29,6 +31,9 @@ class BuiltinLanguage(LanguageSpecification):
 
     def function_sum(self, value, evaluator, context):
         return sum(evaluator(v, context) for v in value)
+
+    def function_mul(self, value, evaluator, context):
+        return functools.reduce(operator.mul, (evaluator(v, context) for v in value))
 
 
 class Evaluator:

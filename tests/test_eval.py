@@ -20,6 +20,9 @@ from dicteval.exceptions import FunctionNotFound
     ({"=all": (True, True, True)}, True),
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),
+    ({"=divmod": (8,3)}, (2,2)),
+    ({"=divmod": [8,3]}, (2,2)),
+    ({"=divmod": (7.5,2.5)}, (3.0,0.0)),
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result
@@ -53,6 +56,8 @@ def test_json_loads():
     ("all", tuple(), True),
     ("all", (True, True), True),
     ("all", (True, False), False),
+    ("divmod", (8,3), (2,2)),
+    ("divmod", (7.5,2.5), (3.0,0.0)),
 ])
 def test_buitin_language(fn, args, result, context):
     language = BuiltinLanguage()

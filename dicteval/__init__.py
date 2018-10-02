@@ -41,6 +41,9 @@ class BuiltinLanguage(LanguageSpecification):
     def function_mul(self, value, evaluator, context):
         return functools.reduce(operator.mul, (evaluator(v, context) for v in value))
 
+    def function_divmod(self, value, evaluator, context):
+        return divmod(*evaluator(value, context))
+
 
 class Evaluator:
     def __init__(self, language_spec):

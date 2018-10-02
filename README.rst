@@ -72,11 +72,14 @@ Function ``=if``
 ''''''''''''''''
 
 Evaluates condition and returns first value if true, otherwise, returns second value.
+If no false valuse is supplied, it is assumed to be ``None``.
 
     >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes", "no"]}, context={"var": 6})
     'yes'
     >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes", "no"]}, context={"var": 4})
     'no'
+    >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes"]}, context={"var": 4})
+    None
 
 
 Function ``=neq``

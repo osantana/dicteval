@@ -3,7 +3,7 @@ import json
 import operator
 import re
 
-from .exceptions import FunctionNotFound
+# from .exceptions import FunctionNotFound
 
 
 class LanguageSpecification:
@@ -12,6 +12,8 @@ class LanguageSpecification:
             item = "nop"
         if item.startswith('map'):
             item = "map"
+        if item.startswith('filter'):
+            item = "filter"
         try:
             return getattr(self, f"function_{item}")
         except AttributeError:
@@ -41,6 +43,9 @@ class BuiltinLanguage(LanguageSpecification):
     def function_map(self, func, value, evaluator, context):
         return [func(e) for e in [evaluator(v, context) for v in value]]
 
+    def function_filter(self, func, value, evaluator, context):
+        return list(filter(func, (evaluator(v, context) for v in value)))
+
 
 class Evaluator:
     def __init__(self, language_spec):
@@ -63,9 +68,9 @@ class Evaluator:
 
             func = self.language[key[1:]]
             
-            if func.__name__ == 'function_map':
-                mapping_func = re.search(r'map\((.*)\)',key).groups()[0]                
-                return func(eval(mapping_func), value, self, context)
+            if func.__name__ in ['function_map','function_filter']:
+                coll_func = re.search(r'(map|filter)\((.*)\)',key).groups()[1]
+                return func(eval(coll_func), value, self, context)
             
             return func(value, self, context)
 

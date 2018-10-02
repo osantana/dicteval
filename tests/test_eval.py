@@ -18,7 +18,7 @@ from dicteval.exceptions import FunctionNotFound
     ({"=sum": {"=": [3, 5]}}, 8),
     ({"=mul": (5, 3, 2, -1)}, -30),
     ({"=map(lambda x: x**2)": [5, 6, -7]},[25,36,49]),
-    ({"=mul": (5, 3, 2, -1)}, -30)
+    ({"=filter(lambda x: x>20)": [10, 18, 22,3,-10,50,800]},[22,50,800])
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result

@@ -68,6 +68,19 @@ Returns ``True`` if all elements of sequence are equals:
    True
 
 
+Function ``=if``
+''''''''''''''''
+
+Evaluates condition and returns first value if true, otherwise, returns second value.
+If no false value is supplied, it is assumed to be ``None``.
+
+    >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes", "no"]}, context={"var": 6})
+    'yes'
+    >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes", "no"]}, context={"var": 4})
+    'no'
+    >>> dicteval({"=if": [{"=": "@{var > 5}"}, "yes"]}, context={"var": 4})
+
+
 Function ``=neq``
 ''''''''''''''''
 

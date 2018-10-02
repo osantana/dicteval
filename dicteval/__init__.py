@@ -26,6 +26,12 @@ class BuiltinLanguage(LanguageSpecification):
         value = [evaluator(v, context) for v in value]
         return not value or value.count(value[0]) == len(value)
 
+    def function_if(self, value, evaluator, context):
+        values = [evaluator(v, context) for v in value]
+        condition, t = values[0:2]
+        f = values[2] if len(values) > 2 else None
+        return t if condition else f
+
     def function_neq(self, value, evaluator, context):
         return not self.function_eq(value, evaluator, context)
 

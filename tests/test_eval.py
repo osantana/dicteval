@@ -17,6 +17,8 @@ from dicteval.exceptions import FunctionNotFound
     ({"=sum": (3, 5)}, 8),
     ({"=sum": {"=": [3, 5]}}, 8),
     ({"=mul": (5, 3, 2, -1)}, -30),
+    ({"=map(lambda x: x**2)": [5, 6, -7]},[25,36,49]),
+    ({"=filter(lambda x: x>20)": [10, 18, 22,3,-10,50,800]},[22,50,800]),
     ({"=all": (True, True, True)}, True),
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),

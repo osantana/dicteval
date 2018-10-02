@@ -1,6 +1,7 @@
 import functools
 import json
 import operator
+import re
 
 from .exceptions import FunctionNotFound
 
@@ -9,6 +10,10 @@ class LanguageSpecification:
     def __getitem__(self, item):
         if not item:
             item = "nop"
+        if item.startswith('map'):
+            item = "map"
+        if item.startswith('filter'):
+            item = "filter"
         try:
             return getattr(self, f"function_{item}")
         except AttributeError:
@@ -47,6 +52,12 @@ class BuiltinLanguage(LanguageSpecification):
     def function_mul(self, value, evaluator, context):
         return functools.reduce(operator.mul, (evaluator(v, context) for v in value))
 
+    def function_map(self, func, value, evaluator, context):
+        return [func(e) for e in [evaluator(v, context) for v in value]]
+
+    def function_filter(self, func, value, evaluator, context):
+        return list(filter(func, (evaluator(v, context) for v in value)))
+
     def function_zip(self, value, evaluator, context):
         lists = [evaluator(v, context) for v in value]
         return list(zip(*lists))
@@ -72,6 +83,11 @@ class Evaluator:
                 value = self(value, context)
 
             func = self.language[key[1:]]
+            
+            if func.__name__ in ['function_map','function_filter']:
+                coll_func = re.search(r'(map|filter)\((.*)\)',key).groups()[1]
+                return func(eval(coll_func), value, self, context)
+            
             return func(value, self, context)
 
         if isinstance(expr, (list, tuple)):
@@ -84,9 +100,7 @@ class Evaluator:
 
         return expr
 
-
 dicteval = Evaluator(BuiltinLanguage)
-
 
 def jsoneval(string):
     return dicteval(json.loads(string))

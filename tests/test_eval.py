@@ -17,6 +17,10 @@ from dicteval.exceptions import FunctionNotFound
     ({"=sum": (3, 5)}, 8),
     ({"=sum": {"=": [3, 5]}}, 8),
     ({"=mul": (5, 3, 2, -1)}, -30),
+    ({"=all": (True, True, True)}, True),
+    ({"=all": (True, False, True)}, False),
+    ({"=all": (False, False, False)}, False),
+    ({"=zip": ([1, 2, 3], [4, 5], [6, 7, 8, 9])}, [(1, 4, 6), (2, 5, 7)]),
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result
@@ -36,6 +40,8 @@ def test_json_loads():
 
 
 @pytest.mark.parametrize("fn,args,result", [
+    ("any", (1, 2, 3), True),
+    ("any", (0, 0), False),
     ("eq", (1, 1, 1, 1, 1), True),
     ("eq", (1, 1, 5, 1, 1), False),
     ("neq", (1, 1, 1, 1, 1), False),
@@ -45,6 +51,9 @@ def test_json_loads():
     ("not", False, True),
     ("sum", (1, 2), 3),
     ("mul", (2, 4), 8),
+    ("all", tuple(), True),
+    ("all", (True, True), True),
+    ("all", (True, False), False),
 ])
 def test_buitin_language(fn, args, result, context):
     language = BuiltinLanguage()

@@ -53,9 +53,9 @@ Function ``=any``
 
 Returns ``True`` if any element of sequence is true.
 
-    >>> dicteval({"=any", [1, 2, 3]})
+    >>> dicteval({"=any": [1, 2, 3]})
     True
-    >>> dicteval({"=any", [0, 0]})
+    >>> dicteval({"=any": [0, 0]})
     False
 
 
@@ -126,9 +126,9 @@ Function ``=all``
 
 Return True if all elements of the iterable are true (or if the iterable is empty)
 
-   >>> dicteval({"=mul": (True, False)})
+   >>> dicteval({"=all": (True, False)})
    False
-   >>> dicteval({"=mul": (True, True)})
+   >>> dicteval({"=all": (True, True)})
    True
 
 

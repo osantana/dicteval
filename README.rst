@@ -120,6 +120,16 @@ Returns a number with the product of arguments:
    >>> dicteval({"=mul": [3, 5]})
    15
 
+Function ``=all``
+'''''''''''''''''
+
+Return True if all elements of the iterable are true (or if the iterable is empty)
+
+   >>> dicteval({"=mul": (True, False)})
+   False
+   >>> dicteval({"=mul": (True, True)})
+   True
+
 To Do
 -----
 

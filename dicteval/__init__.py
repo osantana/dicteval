@@ -16,6 +16,9 @@ class LanguageSpecification:
 
 
 class BuiltinLanguage(LanguageSpecification):
+    def function_any(self, value, evaluator, context):
+        return any([evaluator(v, context) for v in value])
+
     def function_eq(self, value, evaluator, context):
         value = [evaluator(v, context) for v in value]
         return not value or value.count(value[0]) == len(value)

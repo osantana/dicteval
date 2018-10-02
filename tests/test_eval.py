@@ -3,6 +3,7 @@ import pytest
 from dicteval import dicteval, jsoneval, BuiltinLanguage
 from dicteval.exceptions import FunctionNotFound
 
+from tests.test_helpers import check_even
 
 @pytest.mark.parametrize("expression,result", [
     (3, 3),
@@ -21,6 +22,7 @@ from dicteval.exceptions import FunctionNotFound
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),
     ({"=zip": ([1, 2, 3], [4, 5], [6, 7, 8, 9])}, [(1, 4, 6), (2, 5, 7)]),
+    ({"=filter": [check_even, [2, 3, 4]]}, [2, 4])
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result

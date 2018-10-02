@@ -36,6 +36,8 @@ def test_json_loads():
 
 
 @pytest.mark.parametrize("fn,args,result", [
+    ("any", (1, 2, 3), True),
+    ("any", (0, 0), False),
     ("eq", (1, 1, 1, 1, 1), True),
     ("eq", (1, 1, 5, 1, 1), False),
     ("neq", (1, 1, 1, 1, 1), False),

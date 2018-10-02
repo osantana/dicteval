@@ -55,7 +55,7 @@ Returns ``True`` if any element of sequence is true.
 
     >>> dicteval({"=any", [1, 2, 3]})
     True
-    >>> dicteval({"=any", [0]})
+    >>> dicteval({"=any", [0, 0]})
     False
 
 

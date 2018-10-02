@@ -41,6 +41,10 @@ class BuiltinLanguage(LanguageSpecification):
     def function_all(self, value, evaluator, context):
         return all(evaluator(v, context) for v in value)
 
+    def function_zip(self, value, evaluator, context):
+        lists = [evaluator(v, context) for v in value]
+        return list(zip(*lists))
+
 
 class Evaluator:
     def __init__(self, language_spec):

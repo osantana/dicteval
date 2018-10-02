@@ -20,6 +20,7 @@ from dicteval.exceptions import FunctionNotFound
     ({"=all": (True, True, True)}, True),
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),
+    ({"=zip": ([1, 2, 3], [4, 5], [6, 7, 8, 9])}, [(1, 4, 6), (2, 5, 7)]),
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result

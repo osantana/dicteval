@@ -44,6 +44,10 @@ class BuiltinLanguage(LanguageSpecification):
     def function_divmod(self, value, evaluator, context):
         return divmod(*evaluator(value, context))
 
+    def function_zip(self, value, evaluator, context):
+        lists = [evaluator(v, context) for v in value]
+        return list(zip(*lists))
+
 
 class Evaluator:
     def __init__(self, language_spec):

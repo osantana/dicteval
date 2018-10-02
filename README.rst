@@ -120,6 +120,7 @@ Returns a number with the product of arguments:
    >>> dicteval({"=mul": [3, 5]})
    15
 
+
 Function ``=all``
 '''''''''''''''''
 
@@ -130,6 +131,7 @@ Return True if all elements of the iterable are true (or if the iterable is empt
    >>> dicteval({"=all": (True, True)})
    True
 
+
 Function ``=divmod``
 '''''''''''''''''
 
@@ -139,6 +141,16 @@ Returns a tuple containing the quotient and remainder after division:
    (2,2)
    >>> dicteval({"=divmod": [7.5,2.5]})
    (3.0,0.0)
+
+
+Function ``=zip``
+'''''''''''''''''
+
+Return list of aggregate tuples constructed from elements of multiple iterables.
+
+   >>> dicteval({"=zip": [[1, 2, 3], [4, 5], [6, 7, 8, 9]]})
+   [(1, 4, 6), (2, 5, 7)]
+
 
 To Do
 -----

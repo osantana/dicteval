@@ -48,6 +48,17 @@ Functions
 You can use the following builtin functions in your expressions:
 
 
+Function ``=any``
+'''''''''''''''''
+
+Returns ``True`` if any element of sequence is true.
+
+    >>> dicteval({"=any": [1, 2, 3]})
+    True
+    >>> dicteval({"=any": [0, 0]})
+    False
+
+
 Function ``=eq``
 ''''''''''''''''
 
@@ -108,6 +119,27 @@ Returns a number with the product of arguments:
 
    >>> dicteval({"=mul": [3, 5]})
    15
+
+
+Function ``=all``
+'''''''''''''''''
+
+Return True if all elements of the iterable are true (or if the iterable is empty)
+
+   >>> dicteval({"=all": (True, False)})
+   False
+   >>> dicteval({"=all": (True, True)})
+   True
+
+
+Function ``=zip``
+'''''''''''''''''
+
+Return list of aggregate tuples constructed from elements of multiple iterables.
+
+   >>> dicteval({"=zip": [[1, 2, 3], [4, 5], [6, 7, 8, 9]]})
+   [(1, 4, 6), (2, 5, 7)]
+
 
 To Do
 -----

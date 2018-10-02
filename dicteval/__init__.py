@@ -21,6 +21,12 @@ class LanguageSpecification:
 
 
 class BuiltinLanguage(LanguageSpecification):
+    def function_any(self, value, evaluator, context):
+        return any(evaluator(v, context) for v in value)
+
+    def function_all(self, value, evaluator, context):
+        return all(evaluator(v, context) for v in value)
+
     def function_eq(self, value, evaluator, context):
         value = [evaluator(v, context) for v in value]
         return not value or value.count(value[0]) == len(value)
@@ -45,6 +51,10 @@ class BuiltinLanguage(LanguageSpecification):
 
     def function_filter(self, func, value, evaluator, context):
         return list(filter(func, (evaluator(v, context) for v in value)))
+
+    def function_zip(self, value, evaluator, context):
+        lists = [evaluator(v, context) for v in value]
+        return list(zip(*lists))
 
 
 class Evaluator:

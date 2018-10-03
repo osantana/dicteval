@@ -55,8 +55,6 @@ def test_json_loads():
     ("not", False, True),
     ("sum", (1, 2), 3),
     ("mul", (2, 4), 8),
-    ("reduce", (47, 11, 42),100),
-    ("reduce",(10, -13, 25, 2),-4),
     ("all", tuple(), True),
     ("all", (True, True), True),
     ("all", (True, False), False),

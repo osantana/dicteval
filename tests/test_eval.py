@@ -23,6 +23,8 @@ from dicteval.exceptions import FunctionNotFound
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),
     ({"=zip": ([1, 2, 3], [4, 5], [6, 7, 8, 9])}, [(1, 4, 6), (2, 5, 7)]),
+    ({'=reduce(lambda x,y: x + y)':[2,3,4,5]}, 14),
+    ({'=reduce(lambda x,y: x + y, start=100)':[2,3,4,5]}, 114)
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result

@@ -3,7 +3,7 @@ import json
 import operator
 import re
 
-from .exceptions import FunctionNotFound
+# from .exceptions import FunctionNotFound
 
 
 class LanguageSpecification:
@@ -14,6 +14,8 @@ class LanguageSpecification:
             item = "map"
         if item.startswith('filter'):
             item = "filter"
+        if item.startswith('reduce'):
+            item = "reduce"
         try:
             return getattr(self, f"function_{item}")
         except AttributeError:
@@ -58,6 +60,13 @@ class BuiltinLanguage(LanguageSpecification):
     def function_filter(self, func, value, evaluator, context):
         return list(filter(func, (evaluator(v, context) for v in value)))
 
+    def function_reduce(self, func, value, evaluator, context,start=None):
+        if start:
+            start = eval(start[0])
+            return functools.reduce(func, (evaluator(v, context) for v in value),start)
+        else:
+            return functools.reduce(func, (evaluator(v, context) for v in value))
+
     def function_zip(self, value, evaluator, context):
         lists = [evaluator(v, context) for v in value]
         return list(zip(*lists))
@@ -84,8 +93,13 @@ class Evaluator:
 
             func = self.language[key[1:]]
             
-            if func.__name__ in ['function_map','function_filter']:
-                coll_func = re.search(r'(map|filter)\((.*)\)',key).groups()[1]
+            if func.__name__ in ['function_map',
+                                 'function_filter',
+                                 'function_reduce']:
+                hof, coll_func = re.search(r'(map|filter|reduce)\((.*)\)',key).groups()#[1]
+                if hof == 'reduce':
+                    coll_func, *start = re.split(r',\s*?start\s*?=',coll_func)
+                    return func(eval(coll_func), value, self, context,start=start)
                 return func(eval(coll_func), value, self, context)
             
             return func(value, self, context)

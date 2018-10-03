@@ -3,7 +3,7 @@ import json
 import operator
 import re
 
-# from .exceptions import FunctionNotFound
+from .exceptions import FunctionNotFound
 
 
 class LanguageSpecification:

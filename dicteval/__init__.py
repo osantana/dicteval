@@ -5,7 +5,6 @@ import re
 
 from .exceptions import FunctionNotFound
 
-
 class LanguageSpecification:
     def __getitem__(self, item):
         if not item:
@@ -14,6 +13,8 @@ class LanguageSpecification:
             item = "map"
         if item.startswith('filter'):
             item = "filter"
+        if item.startswith('reduce'):
+            item = "reduce"   
         try:
             return getattr(self, f"function_{item}")
         except AttributeError:
@@ -58,6 +59,9 @@ class BuiltinLanguage(LanguageSpecification):
     def function_filter(self, func, value, evaluator, context):
         return list(filter(func, (evaluator(v, context) for v in value)))
 
+    def function_reduce(self, func, value, evaluator, context):
+        return functools.reduce(func, (evaluator(v, context) for v in value))
+
     def function_zip(self, value, evaluator, context):
         lists = [evaluator(v, context) for v in value]
         return list(zip(*lists))
@@ -85,7 +89,7 @@ class Evaluator:
             func = self.language[key[1:]]
             
             if func.__name__ in ['function_map','function_filter']:
-                coll_func = re.search(r'(map|filter)\((.*)\)',key).groups()[1]
+                coll_func = re.search(r'(map|filter|reduce)\((.*)\)',key).groups()[1]
                 return func(eval(coll_func), value, self, context)
             
             return func(value, self, context)

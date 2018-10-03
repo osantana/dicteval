@@ -96,7 +96,7 @@ class Evaluator:
             if func.__name__ in ['function_map',
                                  'function_filter',
                                  'function_reduce']:
-                hof, coll_func = re.search(r'(map|filter|reduce)\((.*)\)',key).groups()#[1]
+                hof, coll_func = re.search(r'(map|filter|reduce)\((.*)\)',key).groups()
                 if hof == 'reduce':
                     coll_func, *start = re.split(r',\s*?start\s*?=',coll_func)
                     return func(eval(coll_func), value, self, context,start=start)

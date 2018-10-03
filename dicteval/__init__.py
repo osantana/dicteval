@@ -88,7 +88,7 @@ class Evaluator:
 
             func = self.language[key[1:]]
             
-            if func.__name__ in ['function_map','function_filter']:
+            if func.__name__ in ['function_map','function_filter', 'function_reduce']:
                 coll_func = re.search(r'(map|filter|reduce)\((.*)\)',key).groups()[1]
                 return func(eval(coll_func), value, self, context)
             

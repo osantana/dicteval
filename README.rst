@@ -145,6 +145,17 @@ Return True if all elements of the iterable are true (or if the iterable is empt
    True
 
 
+Function ``=divmod``
+'''''''''''''''''
+
+Returns a tuple containing the quotient and remainder after division:
+
+   >>> dicteval({"=divmod": [8,3]})
+   (2, 2)
+   >>> dicteval({"=divmod": [7.5,2.5]})
+   (3.0, 0.0)
+
+
 Function ``=zip``
 '''''''''''''''''
 

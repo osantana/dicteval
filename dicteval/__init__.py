@@ -52,6 +52,9 @@ class BuiltinLanguage(LanguageSpecification):
     def function_mul(self, value, evaluator, context):
         return functools.reduce(operator.mul, (evaluator(v, context) for v in value))
 
+    def function_divmod(self, value, evaluator, context):
+        return divmod(*evaluator(value, context))
+
     def function_map(self, func, value, evaluator, context):
         return [func(e) for e in [evaluator(v, context) for v in value]]
 

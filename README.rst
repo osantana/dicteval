@@ -147,6 +147,21 @@ To Do
 - Add more functions to the builtin language
 
 
+Contribute
+----------
+
+To contribute to `dicteval`: 
+
+    1. Clone this repository and `cd` into it
+    2. Install dev dependencies with [pipenv](https://github.com/pypa/pipenv)
+       ```bash
+       pipenv install --dev
+       ```
+    3. Create a branch, like `git checkout -b [feature_name]`
+    4. Git commit changes
+    5. Pull request
+
+ 
 License
 -------
 

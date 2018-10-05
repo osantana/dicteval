@@ -65,6 +65,11 @@ class BuiltinLanguage(LanguageSpecification):
         lists = [evaluator(v, context) for v in value]
         return list(zip(*lists))
 
+    def function_filter(self, value, evaluator, context):
+        if callable(value[0]):
+            return list(filter(value[0], [v for v in value[1]]))
+        else:
+            raise ValueError("Filter requires a function for evaluation")
 
 class Evaluator:
     def __init__(self, language_spec):

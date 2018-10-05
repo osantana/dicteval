@@ -164,6 +164,13 @@ Return list of aggregate tuples constructed from elements of multiple iterables.
    >>> dicteval({"=zip": [[1, 2, 3], [4, 5], [6, 7, 8, 9]]})
    [(1, 4, 6), (2, 5, 7)]
 
+Function ``=filter``
+'''''''''''''''''
+
+Returns list of all values that match given function.
+
+   >>> dicteval({"=filter": [check_even, [2, 3, 4]]})
+   [2,4]
 
 To Do
 -----

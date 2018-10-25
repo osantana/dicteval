@@ -10,8 +10,8 @@ DESCRIPTION = 'Evaluate expressions in dict/json objects'
 URL = 'https://github.com/osantana/dicteval'
 EMAIL = 'dicteval@osantana.me'
 AUTHOR = 'Osvaldo Santana Neto'
-REQUIRES_PYTHON = '>=3.6.0'
-VERSION = "0.0.5"
+REQUIRES_PYTHON = '>=3.7.0'
+VERSION = "0.0.6"
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -35,7 +35,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],

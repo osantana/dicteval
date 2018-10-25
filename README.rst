@@ -51,6 +51,15 @@ Functions
 You can use the following builtin functions in your expressions:
 
 
+Function ``=lambda(arg1[, arg2[, argN...]])``
+'''''''''''''''''''''''''''''''''''''''''''''
+
+Returns a function object that can be used together with functions like
+``=map`` or ``=filter``.
+
+    >>> dicteval({"=filter": [{"=lambda(x)": {"=eq": ["!{x}", 2]}}, [1, 2, 3]]})
+    [2]
+
 Function ``=any``
 '''''''''''''''''
 

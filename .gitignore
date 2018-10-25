@@ -1,6 +1,7 @@
 .pytest_cache/
 *.egg-info/
 dist/
+build/
 .idea
 .eggs/
 .venv/

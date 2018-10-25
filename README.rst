@@ -85,7 +85,7 @@ If no false value is supplied, it is assumed to be ``None``.
 
 
 Function ``=neq``
-''''''''''''''''
+'''''''''''''''''
 
 Returns ``True`` if elements of sequence are different:
 
@@ -105,7 +105,7 @@ Returns the same values passed as arguments:
 
 
 Function ``=not``
-''''''''''''''''
+'''''''''''''''''
 
 Returns the boolean inverse of argument:
 
@@ -149,7 +149,7 @@ Return True if all elements of the iterable are true (or if the iterable is empt
 
 
 Function ``=divmod``
-'''''''''''''''''
+''''''''''''''''''''
 
 Returns a tuple containing the quotient and remainder after division:
 

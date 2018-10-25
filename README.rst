@@ -146,6 +146,15 @@ Returns a number with the product of arguments:
    15
 
 
+Function ``=pow``
+'''''''''''''''''
+
+Returns a number with the power of arguments:
+
+   >>> dicteval({"=pow": [2, 3, 4]})
+   4096
+
+
 Function ``=all``
 '''''''''''''''''
 
@@ -176,6 +185,33 @@ Return list of aggregate tuples constructed from elements of multiple iterables.
    >>> dicteval({"=zip": [[1, 2, 3], [4, 5], [6, 7, 8, 9]]})
    [(1, 4, 6), (2, 5, 7)]
 
+
+Function ``=filter``
+''''''''''''''''''''
+
+Filter elements of a collection using a ``=lambda`` function.
+
+    >>> dicteval({
+    ...     "=filter": [
+    ...         {"=lambda(x)": {"=neq": ["!{x}", 2]}},
+    ...         [1, 2, 3, 2, 1],
+    ...     ]
+    ... })
+    [1, 3, 1]
+
+
+Function ``=map``
+''''''''''''''''''''
+
+Map elements of a collection using a ``=lambda`` function.
+
+    >>> dicteval({
+    ...     "=map": [
+    ...         {"=lambda(x)": {"=pow": ["!{x}", 3]}},
+    ...         [1, 2, 3],
+    ...     ]
+    ... })
+    [1, 8, 27]
 
 To Do
 -----

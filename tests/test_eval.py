@@ -1,6 +1,6 @@
 import pytest
 
-from dicteval import dicteval, jsoneval, BuiltinLanguage
+from dicteval import BuiltinLanguage, dicteval, jsoneval
 from dicteval.exceptions import FunctionNotFound
 
 
@@ -20,12 +20,14 @@ from dicteval.exceptions import FunctionNotFound
     ({"=map(lambda x: x**2)": [5, 6, -7]},[25,36,49]),
     ({"=filter(lambda x: x>20)": [10, 18, 22,3,-10,50,800]},[22,50,800]),
     ({"=all": (True, True, True)}, True),
+    ({"=all": {"=": (True, True, True)}}, True),
     ({"=all": (True, False, True)}, False),
     ({"=all": (False, False, False)}, False),
-    ({"=divmod": (8,3)}, (2,2)),
-    ({"=divmod": [8,3]}, (2,2)),
-    ({"=divmod": (7.5,2.5)}, (3.0,0.0)),
-    ({"=zip": ([1, 2, 3], [4, 5], [6, 7, 8, 9])}, [(1, 4, 6), (2, 5, 7)]),
+    ({"=divmod": (8, 3)}, (2, 2)),
+    ({"=divmod": [8, 3]}, (2, 2)),
+    ({"=divmod": {"=": [8, 3]}}, (2, 2)),
+    ({"=divmod": (7.5, 2.5)}, (3.0, 0.0)),
+    ({"=zip": ([1, 2, 3], [4, 5], {"=": [6, 7, 8, 9]})}, [(1, 4, 6), (2, 5, 7)]),
 ])
 def test_basic_eval(expression, result):
     assert dicteval(expression) == result
@@ -41,7 +43,7 @@ def test_invalid_expression_object_with_no_result_key():
 
 
 def test_json_loads():
-    assert jsoneval('{"=": [true, null]}') == [True, None]
+    assert jsoneval('{"=": [true, false, null]}') == [True, False, None]
 
 
 @pytest.mark.parametrize("fn,args,result", [
@@ -59,8 +61,8 @@ def test_json_loads():
     ("all", tuple(), True),
     ("all", (True, True), True),
     ("all", (True, False), False),
-    ("divmod", (8,3), (2,2)),
-    ("divmod", (7.5,2.5), (3.0,0.0)),
+    ("divmod", (8, 3), (2, 2)),
+    ("divmod", (7.5, 2.5), (3.0, 0.0)),
 ])
 def test_buitin_language(fn, args, result, context):
     language = BuiltinLanguage()

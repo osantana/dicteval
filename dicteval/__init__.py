@@ -86,24 +86,28 @@ class Evaluator:
                 value = self(value, context)
 
             func = self.language[key[1:]]
-            
-            if func.__name__ in ['function_map','function_filter']:
-                coll_func = re.search(r'(map|filter)\((.*)\)',key).groups()[1]
+
+            if func.__name__ in ['function_map', 'function_filter']:
+                coll_func = re.search(r'(map|filter)\((.*)\)', key).groups()[1]
                 return func(eval(coll_func), value, self, context)
-            
+
             return func(value, self, context)
 
         if isinstance(expr, (list, tuple)):
             return [self(v, context) for v in expr]
 
+        # TODO: implement a safe eval here
         if isinstance(expr, str):
             if expr.startswith("@{") and expr.endswith("}"):
                 return eval(expr[2:-1], {}, context)
-            return expr.format(**context)
+            if expr.startswith("!{") and expr.endswith("}"):
+                return context[expr[2:-1]]
 
         return expr
 
+
 dicteval = Evaluator(BuiltinLanguage)
+
 
 def jsoneval(string):
     return dicteval(json.loads(string))

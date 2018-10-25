@@ -32,7 +32,7 @@ symbol as an expression:
 You can provide a dictionary with context to be used during evaluation process.
 Context will be used, eg, to evaluate string objects:
 
-  >>> dicteval({"=": "var = {var}"}, context={"var": 1})
+  >>> dicteval({"=": "var = !{var}"}, context={"var": 1})
   'var = 1'
 
 You can also wrap your string content with ``@{}`` to force a Python ``eval()``
@@ -40,6 +40,10 @@ with the context provided:
 
    >>> dicteval({"=sum": [3, "@{var + 2}"]}, context={"var": 3})
    8
+
+.. warning::
+   This functionality will be removed (or changed) in future releases for
+   security reasons.
 
 
 Functions
